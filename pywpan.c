@@ -37,10 +37,15 @@ struct sockaddr_ieee802154 {
 
 static int PyWPANSocket_init(PyWPANSocketObject *self, PyObject *args, PyObject *kwds);
 static void PyWPANSocket_dealloc(PyWPANSocketObject *self);
+static PyObject *PyWPANSocket_bind(PyWPANSocketObject *self, PyObject *addr);
 static PyObject *PyWPANSocket_sendto(PyWPANSocketObject *self, PyObject *addr);
+static PyObject *PyWPANSocket_recvfrom(PyWPANSocketObject *self);
 
 static PyMethodDef PyWPANSocket_methods[] = {
+    {"bind", (PyCFunction)PyWPANSocket_bind, METH_O, 0},
     {"sendto", (PyCFunction)PyWPANSocket_sendto, METH_VARARGS, 0},
+    {"recvfrom", (PyCFunction)PyWPANSocket_recvfrom, METH_NOARGS, 0},
+    /* {"get_hwaddr", (PyCFunction)PyWPANSocket_get_hwaddr, METH_NOARGS, 0}, */
     {NULL}  /* Sentinel */
 };
 
@@ -220,6 +225,12 @@ static void PyWPANSocket_dealloc(PyWPANSocketObject *self)
     close(self->sock_fd);
 }
 
+static PyObject *PyWPANSocket_bind(PyWPANSocketObject *self, PyObject *addr)
+{
+    PyErr_SetString(PyExc_NotImplementedError, "bind() not implemented yet");
+    return NULL;
+}
+
 static PyObject *PyWPANSocket_sendto(PyWPANSocketObject *self, PyObject *args)
 {
     PyObject *addr;
@@ -241,4 +252,10 @@ static PyObject *PyWPANSocket_sendto(PyWPANSocketObject *self, PyObject *args)
         return NULL;
     }
     return PyLong_FromSsize_t(res);
+}
+
+static PyObject *PyWPANSocket_recvfrom(PyWPANSocketObject *self)
+{
+    PyErr_SetString(PyExc_NotImplementedError, "recvfrom() not implemented yet");
+    return NULL;
 }
